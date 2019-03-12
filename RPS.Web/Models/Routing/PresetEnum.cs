@@ -1,6 +1,6 @@
 ﻿
 
-namespace RPS.Web.Models.Ui
+namespace RPS.Web.Models.Routing
 {
     public enum PresetEnum
     {

@@ -1,7 +1,7 @@
 ﻿using RPS.Core.Models;
 using RPS.Core.Models.Enums;
 using RPS.Data;
-using RPS.Web.Models.Ui;
+using RPS.Web.Models.Routing;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,11 +24,9 @@ namespace RPS.Web.Controllers
         // GET: Backlog
         public ActionResult Index()
         {
-            //return RedirectToAction("Items", new {  preset = "Open" });
-
             return RedirectToAction("Items", new RouteValueDictionary(
-                new { controller= "Backlog", action = "Main", preset = "Open" }));
-            
+                new { controller = "Backlog", action = "Main", preset = "Open" }));
+
         }
 
         [Route("{preset}")]
@@ -50,9 +48,17 @@ namespace RPS.Web.Controllers
             return View(items);
         }
 
-        // GET: Backlog/Details/5
-        public ActionResult Details(int id)
+        [Route("Detail/{id:int}/{screen?}")]
+        public ActionResult Detail(int id, DetailScreenEnum? screen)
         {
+            if (!screen.HasValue)
+            {
+                return RedirectToAction("Detail", new RouteValueDictionary(
+                    new { controller = "Backlog", action = "Detail", id, screen = DetailScreenEnum.Details }));
+            }
+
+            ViewBag.screen = screen;
+
             var item = rpsData.GetItemById(id);
             return View(item);
         }

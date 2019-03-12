@@ -20,7 +20,15 @@ namespace RPS.Web
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
             );
-           
+
+            /*
+            routes.MapRoute(
+                name: "Detail",
+                url: "{controller}/{action}/{id}/{screen}",
+                defaults: new { controller = "Backlog", action = "Detail", screen = UrlParameter.Optional }
+            );
+            */
+
         }
     }
 }

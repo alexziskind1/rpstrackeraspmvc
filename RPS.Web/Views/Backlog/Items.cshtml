@@ -1,4 +1,5 @@
-﻿@model IEnumerable<RPS.Core.Models.PtItem>
+﻿@using RPS.Web.Models.Routing;
+@model IEnumerable<RPS.Core.Models.PtItem>
 
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3">
     <h1 class="h2">Backlog</h1>
@@ -58,9 +59,7 @@
 
 
                     <td>
-                        @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-                        @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-                        @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                        @Html.ActionLink("Details", "Detail", new { id = item.Id, screen = DetailScreenEnum.Details })
                     </td>
                 </tr>
             }
