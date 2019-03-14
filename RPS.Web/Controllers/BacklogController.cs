@@ -29,7 +29,7 @@ namespace RPS.Web.Controllers
 
         }
 
-        [Route("{preset}")]
+        [Route("Items/{preset}")]
         public ActionResult Items(PresetEnum preset)
         {
             IEnumerable<PtItem> items = null;
