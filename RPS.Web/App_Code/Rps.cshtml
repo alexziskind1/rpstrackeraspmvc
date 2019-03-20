@@ -1,0 +1,57 @@
+﻿@using RPS.Core.Models;
+@using RPS.Core.Models.Enums;
+
+
+@helper UserAvatar(PtUser user)
+{
+        <img src="/Content/@user.Avatar"
+             class="li-avatar rounded mx-auto d-block" alt="@user.FullName" />
+}
+
+@helper ItemTypeIndicatorImage(ItemTypeEnum itemType, string className)
+    {
+        var imgSrc = "";
+
+        switch (itemType)
+        {
+            case ItemTypeEnum.Bug:
+                imgSrc = "/Content/images/icon_bug.png";
+                break;
+            case ItemTypeEnum.Chore:
+                imgSrc = "/Content/images/icon_chore.png";
+                break;
+            case ItemTypeEnum.Impediment:
+                imgSrc = "/Content/images/icon_impediment.png";
+                break;
+            case ItemTypeEnum.PBI:
+                imgSrc = "/Content/images/icon_pbi.png";
+                break;
+        }
+
+        <img src="@imgSrc" class="@className">
+}
+
+@helper PriorityIndicator(PriorityEnum priority)
+    {
+        var priorityClassName = "";
+
+        switch (priority)
+        {
+            case PriorityEnum.Critical:
+                priorityClassName = "priority-critical";
+                break;
+            case PriorityEnum.High:
+                priorityClassName = "priority-high";
+                break;
+            case PriorityEnum.Low:
+                priorityClassName = "priority-low";
+                break;
+            case PriorityEnum.Medium:
+                priorityClassName = "priority-medium";
+                break;
+        }
+
+        <span class="badge @priorityClassName">
+            @priority
+        </span>
+}

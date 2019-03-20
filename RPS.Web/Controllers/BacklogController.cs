@@ -1,6 +1,7 @@
 ﻿using RPS.Core.Models;
 using RPS.Core.Models.Enums;
 using RPS.Data;
+using RPS.Web.Models.Data;
 using RPS.Web.Models.Routing;
 using System;
 using System.Collections.Generic;
@@ -14,9 +15,11 @@ namespace RPS.Web.Controllers
     [RoutePrefix("Backlog")]
     public class BacklogController : Controller
     {
-        private readonly IRpsDataPtItems rpsData;
+        private const int CURRENT_USER_ID = 21; //Fake user id for demo
 
-        public BacklogController(IRpsDataPtItems rpsData)
+        private readonly IRpsPtItemsRepository rpsData;
+
+        public BacklogController(IRpsPtItemsRepository rpsData)
         {
             this.rpsData = rpsData;
         }
@@ -66,22 +69,36 @@ namespace RPS.Web.Controllers
         // GET: Backlog/Create
         public ActionResult Create()
         {
-            return View();
+            var vm = new PtNewItemVm();
+            return View(vm);
         }
 
         // POST: Backlog/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(PtNewItemVm vm)
         {
             try
             {
-                // TODO: Add insert logic here
+                if (ModelState.IsValid)
+                {
+                
+                    var newItem = vm.ToPtNewItem();
+                    newItem.UserId = CURRENT_USER_ID;
 
-                return RedirectToAction("Index");
+                    rpsData.AddNewItem(newItem);
+
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    return View(vm);
+                }
+
+
             }
             catch
             {
-                return View();
+                return View(vm);
             }
         }
 

@@ -28,44 +28,37 @@
                 <th>Priority</th>
                 <th>Estimate</th>
                 <th>Created</th>
-                <th></th>
             </tr>
         </thead>
         <tbody>
             @foreach (var item in Model)
-            {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Type)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Assignee.FullName)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Title)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Status)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Priority)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Estimate)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.DateCreated)
-                    </td>
-
-
-                    <td>
-                        @Html.ActionLink("Details", "Detail", new { id = item.Id, screen = DetailScreenEnum.Details })
-                    </td>
-                </tr>
-            }
+    {
+        <tr class="pt-table-row" onclick="location.href = '@(Url.Action("Detail", new { id = item.Id, screen = DetailScreenEnum.Details }))'">
+     
+            <td>
+                @Rps.ItemTypeIndicatorImage(item.Type, "backlog-icon")
+            </td>
+            <td>
+                @Rps.UserAvatar(item.Assignee)
+            </td>
+            <td><span class="li-title">@Html.DisplayFor(modelItem => item.Title)</span></td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Status)
+            </td>
+            <td>
+                @Rps.PriorityIndicator(item.Priority)
+            </td>
+            <td><span class="li-estimate">@Html.DisplayFor(modelItem => item.Estimate)</span></td>
+            <td><span class="li-date">@item.DateCreated.ToString("MMM d, yyyy")</span></td>
+        </tr>
+        }
         </tbody>
     </table>
 </div>
 
+
+@section styles {
+    @Styles.Render("~/Content/backlogcss")
+}
 
 

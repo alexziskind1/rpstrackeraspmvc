@@ -18,18 +18,20 @@ namespace RPS.Web
 
             // e.g. container.RegisterType<ITestService, TestService>();
 
-            container.RegisterType<IRpsDataPtItems, InMemoryRpsDataPtItems>(
+            var tempDataContext = new RpsInMemoryContext();
+
+            container.RegisterType<IRpsPtItemsRepository, RpsPtItemsRepository>(
                 new ContainerControlledLifetimeManager(),
-                new InjectionFactory(c => new InMemoryRpsDataPtItems())
+                new InjectionFactory(c => new RpsPtItemsRepository(tempDataContext))
                 );
 
-            container.RegisterType<IRpsDataPtUsers, InMemoryRpsDataPtUsers>(
+            container.RegisterType<IRpsPtUserRepository, RpsPtUserRepository>(
                 new ContainerControlledLifetimeManager(),
-                new InjectionFactory(c => new InMemoryRpsDataPtUsers())
+                new InjectionFactory(c => new RpsPtUserRepository(tempDataContext))
                 );
 
-            container.Resolve<IRpsDataPtItems>();
-            container.Resolve<IRpsDataPtUsers>();
+            container.Resolve<IRpsPtItemsRepository>();
+            container.Resolve<IRpsPtUserRepository>();
 
             DependencyResolver.SetResolver(new UnityDependencyResolver(container));
         }

@@ -44,10 +44,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="InMemoryRpsDataPtUsers.cs" />
-    <Compile Include="InMemoryRpsDataPtItems.cs" />
-    <Compile Include="IRpsDataPtUsers.cs" />
-    <Compile Include="IRpsDataPtItems.cs" />
+    <Compile Include="RpsInMemoryContext.cs" />
+    <Compile Include="RpsPtUserRepository.cs" />
+    <Compile Include="RpsPtItemsRepository.cs" />
+    <Compile Include="IRpsPtUserRepository.cs" />
+    <Compile Include="IRpsPtItemsRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
