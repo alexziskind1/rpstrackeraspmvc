@@ -4,17 +4,18 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
 
-namespace RPS.Web.Models.Data
+namespace RPS.Web.Models.ViewModels
 {
     public class PtNewItemVm
     {
-        [Required]
-        public string Title { get; set; }
-        public string Description { get; set; }
-
-
         private readonly List<ItemTypeEnum> _itemTypes = new List<ItemTypeEnum> { ItemTypeEnum.Bug, ItemTypeEnum.Chore, ItemTypeEnum.Impediment, ItemTypeEnum.PBI };
 
+
+        [Required, Display(Name = "Title")]
+        public string Title { get; set; }
+
+        [Display(Name = "Description")]
+        public string Description { get; set; }
 
         [Display(Name = "Type")]
         public ItemTypeEnum TypeStr { get; set; }
@@ -23,6 +24,7 @@ namespace RPS.Web.Models.Data
         {
             get { return new SelectList(_itemTypes, ItemTypeEnum.Bug); }
         }
+
         public PtNewItemVm()
         {
             TypeStr = ItemTypeEnum.Bug;

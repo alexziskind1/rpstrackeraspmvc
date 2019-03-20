@@ -15,6 +15,6 @@ namespace RPS.Data
         PtItem GetItemById(int itemId);
 
         PtItem AddNewItem(PtNewItem newItem);
-        PtItem UpdateItem(PtItem updatedItem);
+        PtItem UpdateItem(PtUpdateItem updateItem);
     }
 }

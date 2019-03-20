@@ -33,7 +33,7 @@
         <tbody>
             @foreach (var item in Model)
     {
-        <tr class="pt-table-row" onclick="location.href = '@(Url.Action("Detail", new { id = item.Id, screen = DetailScreenEnum.Details }))'">
+        <tr class="pt-table-row" onclick="location.href = '@(Url.Action("Details", new { id = item.Id }))'">
      
             <td>
                 @Rps.ItemTypeIndicatorImage(item.Type, "backlog-icon")

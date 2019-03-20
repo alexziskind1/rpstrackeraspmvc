@@ -1,7 +1,7 @@
 ﻿using RPS.Core.Models;
 using RPS.Core.Models.Enums;
 using RPS.Data;
-using RPS.Web.Models.Data;
+using RPS.Web.Models.ViewModels;
 using RPS.Web.Models.Routing;
 using System;
 using System.Collections.Generic;
@@ -17,11 +17,13 @@ namespace RPS.Web.Controllers
     {
         private const int CURRENT_USER_ID = 21; //Fake user id for demo
 
-        private readonly IRpsPtItemsRepository rpsData;
+        private readonly IRpsPtItemsRepository rpsItemsRepo;
+        private readonly IRpsPtUserRepository rpsUserRepo;
 
-        public BacklogController(IRpsPtItemsRepository rpsData)
+        public BacklogController(IRpsPtItemsRepository rpsItemsData, IRpsPtUserRepository rpsUserData)
         {
-            this.rpsData = rpsData;
+            this.rpsItemsRepo = rpsItemsData;
+            this.rpsUserRepo = rpsUserData;
         }
 
         // GET: Backlog
@@ -39,31 +41,72 @@ namespace RPS.Web.Controllers
             switch (preset)
             {
                 case PresetEnum.Open:
-                    items = rpsData.GetOpenItems();
+                    items = rpsItemsRepo.GetOpenItems();
                     break;
                 case PresetEnum.Closed:
-                    items = rpsData.GetClosedItems();
+                    items = rpsItemsRepo.GetClosedItems();
                     break;
                 default:
-                    items = rpsData.GetOpenItems();
+                    items = rpsItemsRepo.GetOpenItems();
                     break;
             }
             return View(items);
         }
 
-        [Route("Detail/{id:int}/{screen?}")]
-        public ActionResult Detail(int id, DetailScreenEnum? screen)
+        [Route("{id:int}/Details")]
+        public ActionResult Details(int id)
         {
-            if (!screen.HasValue)
+            var item = rpsItemsRepo.GetItemById(id);
+            var users = rpsUserRepo.GetAll();
+
+            ViewBag.screen = DetailScreenEnum.Details;
+            ViewBag.users = users;
+
+            return View("Details", item);
+        }
+
+        // POST: Backlog/Detail/5
+        [HttpPost]
+        [Route("{id:int}/Details")]
+        public ActionResult Details(int id, PtItemDetailsVm vm)
+        {
+            var item = rpsItemsRepo.GetItemById(id);
+            var users = rpsUserRepo.GetAll();
+            ViewBag.screen = DetailScreenEnum.Details;
+            ViewBag.users = users;
+
+            try
             {
-                return RedirectToAction("Detail", new RouteValueDictionary(
-                    new { controller = "Backlog", action = "Detail", id, screen = DetailScreenEnum.Details }));
+
+                // TODO: Add update logic here
+                var updatedItem = rpsItemsRepo.UpdateItem(vm.ToPtUpdateItem());
+
+                return View("Details", updatedItem);
             }
+            catch
+            {
+                return View("Details", item);
+            }
+        }
 
-            ViewBag.screen = screen;
+        [Route("{id:int}/Tasks")]
+        public ActionResult Tasks(int id)
+        {
+            var item = rpsItemsRepo.GetItemById(id);
+            ViewBag.screen = DetailScreenEnum.Tasks;
 
-            var item = rpsData.GetItemById(id);
-            return View(item);
+
+            return View("Details", item);
+        }
+
+        [Route("{id:int}/Chitchat")]
+        public ActionResult Chitchat(int id)
+        {
+            var item = rpsItemsRepo.GetItemById(id);
+            ViewBag.screen = DetailScreenEnum.Chitchat;
+
+            
+            return View("Details", item);
         }
 
         // GET: Backlog/Create
@@ -85,7 +128,7 @@ namespace RPS.Web.Controllers
                     var newItem = vm.ToPtNewItem();
                     newItem.UserId = CURRENT_USER_ID;
 
-                    rpsData.AddNewItem(newItem);
+                    rpsItemsRepo.AddNewItem(newItem);
 
                     return RedirectToAction("Index");
                 }

@@ -68,15 +68,35 @@ namespace RPS.Data
                 DateModified = DateTime.Now
             };
 
-            context.PtItems.Add(item1);
+            context.PtItems.Insert(0, item1);
 
             return item1;
         }
 
 
-        public PtItem UpdateItem(PtItem updatedItem)
+        public PtItem UpdateItem(PtUpdateItem updateItem)
         {
-            throw new System.NotImplementedException();
+            var idx = context.PtItems.FindIndex(i => i.Id == updateItem.Id);
+            var oldItem = context.PtItems.Find(i => i.Id == updateItem.Id);
+
+            var uItem = new PtItem
+            {
+                Id = updateItem.Id,
+                Title = updateItem.Title,
+                Description = updateItem.Description,
+                Type = updateItem.Type,
+                Assignee = context.PtUsers.Find(u => u.Id == updateItem.AssigneeId),
+                Estimate = updateItem.Estimate,
+                Priority = updateItem.Priority,
+                Status = updateItem.Status,
+                Tasks = oldItem.Tasks,
+                Comments = oldItem.Comments,
+                DateCreated = oldItem.DateCreated,
+                DateModified = DateTime.Now
+            };
+
+            context.PtItems[idx] = uItem;
+            return uItem;
         }
     }
 }

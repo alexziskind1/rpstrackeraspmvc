@@ -1,0 +1,34 @@
+﻿@using RPS.Web.Models.Routing;
+@using RPS.Web.Models.ViewModels;
+@model RPS.Core.Models.PtItem
+
+<div>
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3">
+        <h1 class="h2" id="itemTitle">@Model.Title</h1>
+        <div class="btn-toolbar mb-2 mb-md-0">
+            <div class="btn-group mr-2">
+                @Html.ActionLink("Details", "Details", "Backlog", new { id = Model.Id }, new { @class = "btn btn-secondary" })
+                @Html.ActionLink("Tasks", "Tasks", "Backlog", new { id = Model.Id }, new { @class = "btn btn-secondary" })
+                @Html.ActionLink("Chitchat", "Chitchat", "Backlog", new { id = Model.Id }, new { @class = "btn btn-secondary" })
+            </div>
+        </div>
+    </div>
+
+</div>
+
+@{
+    switch (ViewBag.screen)
+    {
+        case DetailScreenEnum.Details:
+            <div id="detailsScreenContainer">
+                @Html.Partial("_Details", new PtItemDetailsVm(Model, ViewBag.users))
+            </div>
+            break;
+        case DetailScreenEnum.Tasks:
+            <div id="tasksScreenContainer">Tasks</div>
+            break;
+        case DetailScreenEnum.Chitchat:
+            <div id="chitchatScreenContainer">Chitchat</div>
+            break;
+    }
+}
