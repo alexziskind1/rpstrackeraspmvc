@@ -50,6 +50,9 @@ namespace RPS.Web.Controllers
             IEnumerable<PtItem> items = null;
             switch (preset)
             {
+                case PresetEnum.My:
+                    items = rpsItemsRepo.GetUserItems(CURRENT_USER_ID);
+                    break;
                 case PresetEnum.Open:
                     items = rpsItemsRepo.GetOpenItems();
                     break;
