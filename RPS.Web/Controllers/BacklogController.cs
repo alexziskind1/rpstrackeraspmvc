@@ -9,6 +9,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
+using RPS.Core.Models.Dto;
 
 namespace RPS.Web.Controllers
 {
@@ -17,13 +18,19 @@ namespace RPS.Web.Controllers
     {
         private const int CURRENT_USER_ID = 21; //Fake user id for demo
 
-        private readonly IRpsPtItemsRepository rpsItemsRepo;
-        private readonly IRpsPtUserRepository rpsUserRepo;
+        private readonly IPtUserRepository rpsUserRepo;
+        private readonly IPtItemsRepository rpsItemsRepo;
+        private readonly IPtTasksRepository rpsTasksRepo;
 
-        public BacklogController(IRpsPtItemsRepository rpsItemsData, IRpsPtUserRepository rpsUserData)
+        public BacklogController(
+            IPtUserRepository rpsUserData,
+            IPtItemsRepository rpsItemsData, 
+            IPtTasksRepository rpsTasksData
+            )
         {
-            this.rpsItemsRepo = rpsItemsData;
-            this.rpsUserRepo = rpsUserData;
+            rpsUserRepo = rpsUserData;
+            rpsItemsRepo = rpsItemsData;
+            rpsTasksRepo = rpsTasksData;
         }
 
         // GET: Backlog
@@ -97,6 +104,71 @@ namespace RPS.Web.Controllers
 
 
             return View("Details", item);
+        }
+
+        [HttpPost]
+        [Route("{id:int}/Tasks")]
+        public ActionResult Tasks(int id, PtItemTasksVm vm)
+        {
+            ViewBag.screen = DetailScreenEnum.Tasks;
+
+            try
+            {
+                PtNewTask taskNew = new PtNewTask
+                {
+                    ItemId = id,
+                    Title = vm.NewTaskTitle
+                };
+
+                rpsTasksRepo.AddNewTask(taskNew);
+
+                return RedirectToAction("Tasks");
+            }
+            catch
+            {
+                return RedirectToAction("Tasks");
+            }
+        }
+
+        [HttpPost]
+        [Route("{id:int}/TaskUpdate/{taskId:int}")]
+        public ActionResult TaskUpdate(int id, int taskId, string title, bool? completed)
+        {
+            ViewBag.screen = DetailScreenEnum.Tasks;
+
+            try
+            {
+                PtUpdateTask uTask = new PtUpdateTask
+                {
+                    Id = taskId,
+                    ItemId = id,
+                    Title = title,
+                    Completed = completed.HasValue ? completed.Value : false
+                };
+                rpsTasksRepo.UpdateTask(uTask);
+                return RedirectToAction("Tasks");
+            }
+            catch
+            {
+                return RedirectToAction("Tasks");
+            }
+        }
+
+        [HttpPost]
+        [Route("{id:int}/TaskDelete/{taskId:int}")]
+        public ActionResult TaskDelete(int id, int taskId, PtItemTasksVm vm)
+        {
+            ViewBag.screen = DetailScreenEnum.Tasks;
+
+            try
+            {
+                var result = rpsTasksRepo.DeleteTask(taskId, id);
+                return RedirectToAction("Tasks");
+            }
+            catch
+            {
+                return RedirectToAction("Tasks");
+            }
         }
 
         [Route("{id:int}/Chitchat")]

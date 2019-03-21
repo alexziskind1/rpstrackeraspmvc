@@ -11,27 +11,32 @@ namespace RPS.Web
     {
         public static void RegisterComponents()
         {
-			var container = new UnityContainer();
+            var container = new UnityContainer();
 
             // register all your components with the container here
             // it is NOT necessary to register your controllers
 
             // e.g. container.RegisterType<ITestService, TestService>();
 
-            var tempDataContext = new RpsInMemoryContext();
+            var tempDataContext = new PtInMemoryContext();
 
-            container.RegisterType<IRpsPtItemsRepository, RpsPtItemsRepository>(
+            container.RegisterType<IPtUserRepository, PtUserRepository>(
                 new ContainerControlledLifetimeManager(),
-                new InjectionFactory(c => new RpsPtItemsRepository(tempDataContext))
+                new InjectionFactory(c => new PtUserRepository(tempDataContext))
                 );
 
-            container.RegisterType<IRpsPtUserRepository, RpsPtUserRepository>(
+            container.RegisterType<IPtItemsRepository, PtItemsRepository>(
                 new ContainerControlledLifetimeManager(),
-                new InjectionFactory(c => new RpsPtUserRepository(tempDataContext))
+                new InjectionFactory(c => new PtItemsRepository(tempDataContext))
                 );
 
-            container.Resolve<IRpsPtItemsRepository>();
-            container.Resolve<IRpsPtUserRepository>();
+            container.RegisterType<IPtTasksRepository, PtTasksRepository>(
+                new ContainerControlledLifetimeManager(),
+                new InjectionFactory(c => new PtTasksRepository(tempDataContext))
+                );
+
+            container.Resolve<IPtItemsRepository>();
+            container.Resolve<IPtUserRepository>();
 
             DependencyResolver.SetResolver(new UnityDependencyResolver(container));
         }

@@ -1,0 +1,16 @@
+﻿<script>
+
+    $(function () {
+        $('.pt-btn-task-update').click(function () {
+            let btnObj = $(this);
+            debugger;
+            let itemId = $('#ItemId').val();
+            let taskId = btnObj.attr('data-task-id');
+            let newTitle = $('#pt-task-input-' + taskId).val();
+            let checked = $('#pt-task-checkbox-' + taskId).prop('checked');
+            btnObj.attr('formaction', `/Backlog/${itemId}/TaskUpdate/${taskId}?completed=${checked}&title=${newTitle}`);
+        });
+
+    });
+
+</script>

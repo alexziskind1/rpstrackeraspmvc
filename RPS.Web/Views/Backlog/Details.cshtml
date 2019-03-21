@@ -25,10 +25,18 @@
             </div>
             break;
         case DetailScreenEnum.Tasks:
-            <div id="tasksScreenContainer">Tasks</div>
+            <div id="tasksScreenContainer">
+                @Html.Partial("_Tasks", new PtItemTasksVm(Model))
+            </div>
+
+            @section scripts {
+                @Html.Partial("_TasksScripts")
+            }
+
             break;
         case DetailScreenEnum.Chitchat:
             <div id="chitchatScreenContainer">Chitchat</div>
             break;
     }
 }
+

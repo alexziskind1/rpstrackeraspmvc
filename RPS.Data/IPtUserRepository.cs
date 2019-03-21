@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace RPS.Data
 {
-    public interface IRpsPtUserRepository
+    public interface IPtUserRepository
     {
         IEnumerable<PtUser> GetAll();
     }

@@ -10,11 +10,11 @@ using System;
 
 namespace RPS.Data
 {
-    public class RpsPtItemsRepository : IRpsPtItemsRepository
+    public class PtItemsRepository : IPtItemsRepository
     {
-        private RpsInMemoryContext context;
+        private PtInMemoryContext context;
 
-        public RpsPtItemsRepository(RpsInMemoryContext context)
+        public PtItemsRepository(PtInMemoryContext context)
         {
             this.context = context;
         }
@@ -33,7 +33,10 @@ namespace RPS.Data
 
         public PtItem GetItemById(int itemId)
         {
-            return context.PtItems.SingleOrDefault(i => i.Id == itemId);
+            var item = context.PtItems.SingleOrDefault(i => i.Id == itemId);
+
+            item.Tasks = item.Tasks.Where(t => !t.DateDeleted.HasValue).ToList();
+            return item;
         }
 
         public IEnumerable<PtItem> GetOpenItems()

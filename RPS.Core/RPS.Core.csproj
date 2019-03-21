@@ -43,7 +43,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Models\Dto\PtNewItem.cs" />
+    <Compile Include="Models\Dto\PtNewTask.cs" />
     <Compile Include="Models\Dto\PtUpdateItem.cs" />
+    <Compile Include="Models\Dto\PtUpdateTask.cs" />
     <Compile Include="Models\Enums\ItemTypeEnum.cs" />
     <Compile Include="Models\Enums\PriorityEnum.cs" />
     <Compile Include="Models\Enums\StatusEnum.cs" />

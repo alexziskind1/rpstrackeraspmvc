@@ -9,7 +9,7 @@ using System.Reflection;
 
 namespace RPS.Data
 {
-    public class RpsInMemoryContext
+    public class PtInMemoryContext
     {
         string resourceNameItems = "RPS.Data.GenData.fs-items.json";
         string resourceNameUsers = "RPS.Data.GenData.fs-users.json";
@@ -20,7 +20,7 @@ namespace RPS.Data
         public List<PtItem> PtItems { get { return items; } }
         public List<PtUser> PtUsers { get { return users; } }
 
-        public RpsInMemoryContext()
+        public PtInMemoryContext()
         {
             var assembly = Assembly.GetExecutingAssembly();
 

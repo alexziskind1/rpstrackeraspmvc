@@ -6,12 +6,12 @@ using System.Reflection;
 
 namespace RPS.Data
 {
-    public class RpsPtUserRepository : IRpsPtUserRepository
+    public class PtUserRepository : IPtUserRepository
     {
 
-        private RpsInMemoryContext context;
+        private PtInMemoryContext context;
 
-        public RpsPtUserRepository(RpsInMemoryContext context)
+        public PtUserRepository(PtInMemoryContext context)
         {
             this.context = context;
         }

@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace RPS.Data
 {
-    public interface IRpsPtItemsRepository
+    public interface IPtItemsRepository
     {
         IEnumerable<PtItem> GetAll();
         IEnumerable<PtItem> GetUserItems(int userId);
