@@ -7,9 +7,9 @@
         <h1 class="h2" id="itemTitle">@Model.Title</h1>
         <div class="btn-toolbar mb-2 mb-md-0">
             <div class="btn-group mr-2">
-                @Html.ActionLink("Details", "Details", "Backlog", new { id = Model.Id }, new { @class = "btn btn-secondary" })
-                @Html.ActionLink("Tasks", "Tasks", "Backlog", new { id = Model.Id }, new { @class = "btn btn-secondary" })
-                @Html.ActionLink("Chitchat", "Chitchat", "Backlog", new { id = Model.Id }, new { @class = "btn btn-secondary" })
+                <button onclick="location.href = '@(Url.Action("Details", "Backlog", new { id = Model.Id }))'">Details</button>
+                <button onclick="location.href = '@(Url.Action("Tasks", "Backlog", new { id = Model.Id }))'">Tasks</button>
+                <button onclick="location.href = '@(Url.Action("Chitchat", "Backlog", new { id = Model.Id }))'">Chitchat</button>
             </div>
         </div>
     </div>
