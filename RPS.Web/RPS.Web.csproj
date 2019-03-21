@@ -168,6 +168,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\ViewModels\PtDashboardVm.cs" />
     <Compile Include="Models\ViewModels\PtItemCommentsVm.cs" />
     <Compile Include="Models\ViewModels\PtItemDetailsVm.cs" />
     <Compile Include="Models\ViewModels\PtItemTasksVm.cs" />
@@ -429,6 +430,7 @@
     <Content Include="Content\Images\icon_pbi.png" />
     <Content Include="Content\Images\rpslogo.png" />
     <Content Include="Content\Styles\backlog.css" />
+    <Content Include="Content\Styles\dashboard.css" />
     <Content Include="Content\Styles\detail.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />

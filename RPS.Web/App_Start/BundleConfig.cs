@@ -26,6 +26,10 @@ namespace RPS.Web
                       "~/Content/bootstrap.css",
                       "~/Content/styles/site.css"));
 
+
+            bundles.Add(new StyleBundle("~/Content/dashboardcss").Include(
+                "~/Content/styles/dashboard.css"));
+
             bundles.Add(new StyleBundle("~/Content/backlogcss").Include(
                 "~/Content/styles/backlog.css"));
 

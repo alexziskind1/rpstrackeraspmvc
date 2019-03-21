@@ -30,6 +30,11 @@ namespace RPS.Web
                 new InjectionFactory(c => new PtItemsRepository(tempDataContext))
                 );
 
+            container.RegisterType<IPtDashboardRepository, PtDashboardRepository>(
+                new ContainerControlledLifetimeManager(),
+                new InjectionFactory(c => new PtDashboardRepository(tempDataContext))
+                );
+
             container.RegisterType<IPtTasksRepository, PtTasksRepository>(
                 new ContainerControlledLifetimeManager(),
                 new InjectionFactory(c => new PtTasksRepository(tempDataContext))

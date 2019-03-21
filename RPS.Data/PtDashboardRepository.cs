@@ -21,23 +21,25 @@ namespace RPS.Data
 
         public PtDashboardFilteredIssues GetFilteredIssues(PtDashboardFilter filter)
         {
-            var openItemSpec = new PtItemStatusSpecification(StatusEnum.Open).And(new PtItemStatusSpecification(StatusEnum.ReOpened));
+            var openItemSpec = new PtItemStatusSpecification(StatusEnum.Open);
             var closedItemSpec = new PtItemStatusSpecification(StatusEnum.Closed);
 
             var userIdSpec = new PtItemUserIdSpecification(filter.UserId);
             var dateRangeSpec = new PtItemDateRangeSpecification(filter.DateStart, filter.DateEnd);
 
-            var openItems = Find(openItemSpec);
+            //var items = Find(userIdSpec.And(dateRangeSpec));
 
-            var items = Find(userIdSpec.And(dateRangeSpec));
+            var itemsForUserAndDates = context.PtItems
+                                           .Where(userIdSpec.ToExpression().Compile())
+                                           .Where(dateRangeSpec.ToExpression().Compile());
 
-            var minDate = items.Min(i => i.DateCreated);
-            var maxDate = items.Max(i => i.DateCreated);
+            var minDate = itemsForUserAndDates.Min(i => i.DateCreated);
+            var maxDate = itemsForUserAndDates.Max(i => i.DateCreated);
 
             var categories = GetDates(minDate, maxDate);
 
             var itemsByMonth = categories.Select(c => {
-                return items.Where(i => {
+                return itemsForUserAndDates.Where(i => {
                     var dc = i.DateCreated;
                     return dc.Month == c.Month && dc.Year == c.Year;
                 });
@@ -45,8 +47,8 @@ namespace RPS.Data
 
 
             var categorizedAndDivided = itemsByMonth.Select(c => {
-                var openItemsForMonth = c.AsQueryable().Where(openItemSpec.ToExpression()).ToList();
-                var closedItemsForMonth = c.AsQueryable().Where(closedItemSpec.ToExpression()).ToList();
+                var openItemsForMonth = c.Where(openItemSpec.ToExpression().Compile()).ToList();
+                var closedItemsForMonth = c.Where(closedItemSpec.ToExpression().Compile()).ToList();
 
                 return new ItemsForMonth
                 {
@@ -67,13 +69,33 @@ namespace RPS.Data
 
         public PtDashboardStatusCounts GetStatusCounts(PtDashboardFilter filter)
         {
-            throw new NotImplementedException();
+            var openItemSpec = new PtItemStatusSpecification(StatusEnum.Open);
+            var closedItemSpec = new PtItemStatusSpecification(StatusEnum.Closed);
+            var userIdSpec = new PtItemUserIdSpecification(filter.UserId);
+            var dateRangeSpec = new PtItemDateRangeSpecification(filter.DateStart, filter.DateEnd);
+
+
+            var itemsForUserAndDates = context.PtItems
+                                           .Where(userIdSpec.ToExpression().Compile())
+                                           .Where(dateRangeSpec.ToExpression().Compile());
+
+            //var openItems = Find(openItemSpec.And(userIdSpec).And(dateRangeSpec)).ToList();
+            //var closedItems = Find(closedItemSpec.And(userIdSpec).And(dateRangeSpec)).ToList();
+            var openItems = itemsForUserAndDates.Where(openItemSpec.ToExpression().Compile()).ToList();
+
+            var closedItems = itemsForUserAndDates.Where(closedItemSpec.ToExpression().Compile()).ToList();
+
+            return new PtDashboardStatusCounts
+            {
+                OpenItemsCount = openItems.Count,
+                ClosedItemsCount = closedItems.Count
+            };
         }
 
 
         private IReadOnlyList<PtItem> Find(Specification<PtItem> specification)
         {
-            return context.PtItems.AsQueryable().Where(specification.ToExpression()).ToList();
+            return context.PtItems.Where(specification.ToExpression().Compile()).ToList();
         }
 
         private List<DateTime> GetDates(DateTime min, DateTime max)

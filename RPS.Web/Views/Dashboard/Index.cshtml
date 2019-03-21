@@ -1,4 +1,5 @@
-﻿
+﻿@model RPS.Web.Models.ViewModels.PtDashboardVm
+
 
 <div class="dashboard">
 
@@ -13,17 +14,14 @@
 
         <div class="btn-toolbar mb-2 mb-md-0">
             <div class="btn-group mr-2">
-                <button type="button" class="pt-class-range-filter" data-range="3">
-                    3
-                    Months
+                <button type="button" class="pt-class-range-filter" data-range="3" onclick="location.href = '@(Url.Action("Index", "Dashboard", new { months = 3, userId = ViewBag.userId }))'">
+                    3 Months
                 </button>
-                <button type="button" class="pt-class-range-filter" data-range="6">
-                    6
-                    Months
+                <button type="button" class="pt-class-range-filter" data-range="6" onclick="location.href = '@(Url.Action("Index", "Dashboard", new { months = 6, userId = ViewBag.userId  }))'">
+                    6 Months
                 </button>
-                <button type="button" class="pt-class-range-filter" data-range="12">
-                    1
-                    Year
+                <button type="button" class="pt-class-range-filter" data-range="12" onclick="location.href = '@(Url.Action("Index", "Dashboard", new { months = 12, userId = ViewBag.userId  }))'">
+                    1 Year
                 </button>
             </div>
         </div>
@@ -38,28 +36,28 @@
 
                 <div class="col-12 col-lg-6 col-xl pb-4 active-issues">
                     <span class="comp-label">
-                        <strong id="statusCountsActiveItemsCount"></strong>
+                        <strong>@Model.IssueCountActive</strong>
                         <small>Active issues</small>
                     </span>
                 </div>
 
                 <div class="col-12 col-lg-6 col-xl pb-4 text-success closed-issues">
                     <span class="comp-label">
-                        <strong id="statusCountsClosedItemsCount"></strong>
+                        <strong>@Model.IssueCountClosed</strong>
                         <small>Closed issues</small>
                     </span>
                 </div>
 
                 <div class="col-12 col-lg-6 col-xl pb-4 text-danger open-issues">
                     <span class="comp-label">
-                        <strong id="statusCountsOpenItemsCount"></strong>
+                        <strong>@Model.IssueCountOpen</strong>
                         <small>Open issues</small>
                     </span>
                 </div>
 
                 <div class="col-12 col-lg-6 col-xl pb-4 close-rate">
                     <span class="comp-label">
-                        <strong id="statusCountsCloseRate"></strong>
+                        <strong>@Model.IssueCloseRate</strong>
                         <small>Close rate</small>
                     </span>
                     <p class="m-0 small text-uppercase text-muted">
@@ -88,3 +86,11 @@
     </div>
 
 </div>
+
+
+
+@section styles {
+    @Styles.Render("~/Content/dashboardcss")
+}
+
+
