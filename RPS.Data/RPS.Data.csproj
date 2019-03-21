@@ -44,9 +44,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Helpers\AndSpecification.cs" />
+    <Compile Include="Helpers\PtItemDateRangeSpecification.cs" />
+    <Compile Include="Helpers\PtItemStatusSpecification.cs" />
+    <Compile Include="Helpers\PtItemUserIdSpecification.cs" />
+    <Compile Include="Helpers\Specification.cs" />
     <Compile Include="IPtCommentsRepository.cs" />
+    <Compile Include="IPtDashboardRepository.cs" />
     <Compile Include="IPtTasksRepository.cs" />
     <Compile Include="PtCommentsRepository.cs" />
+    <Compile Include="PtDashboardRepository.cs" />
     <Compile Include="PtInMemoryContext.cs" />
     <Compile Include="PtTasksRepository.cs" />
     <Compile Include="PtUserRepository.cs" />

@@ -42,6 +42,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Models\Dto\PtDashboardFilter.cs" />
+    <Compile Include="Models\Dto\PtDashboardFilteredIssues.cs" />
+    <Compile Include="Models\Dto\PtDashboardStatusCounts.cs" />
     <Compile Include="Models\Dto\PtNewComment.cs" />
     <Compile Include="Models\Dto\PtNewItem.cs" />
     <Compile Include="Models\Dto\PtNewTask.cs" />
