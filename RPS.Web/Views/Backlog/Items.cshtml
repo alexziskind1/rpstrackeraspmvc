@@ -5,13 +5,13 @@
     <h1 class="h2">Backlog</h1>
     <div class="btn-toolbar mb-2 mb-md-0">
         <div class="btn-group mr-2">
-            @Html.ActionLink("My Items", "Items", new { preset = "My" }, new { @class = "btn btn-secondary" })
-            @Html.ActionLink("Open Items", "Items", new { preset = "Open" }, new { @class = "btn btn-secondary" })
-            @Html.ActionLink("Done Items", "Items", new { preset = "Closed" }, new { @class = "btn btn-secondary" })
+            <button onclick="location.href = '@(Url.Action("Items", "Backlog", new { preset = "My" }))'">My Items</button>
+            <button onclick="location.href = '@(Url.Action("Items", "Backlog", new { preset = "Open" }))'">Open Items</button>
+            <button onclick="location.href = '@(Url.Action("Items", "Backlog", new { preset = "Closed" }))'">Done Items</button>
         </div>
 
         <div class="btn-group mr-2">
-            @Html.ActionLink("Add", "Create", null, new { @class = "btn btn-secondary" })
+            <button onclick="location.href = '@(Url.Action("Create", "Backlog"))'">Add</button>
         </div>
 
     </div>
