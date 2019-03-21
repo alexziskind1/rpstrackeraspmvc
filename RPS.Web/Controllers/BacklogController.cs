@@ -21,16 +21,19 @@ namespace RPS.Web.Controllers
         private readonly IPtUserRepository rpsUserRepo;
         private readonly IPtItemsRepository rpsItemsRepo;
         private readonly IPtTasksRepository rpsTasksRepo;
+        private readonly IPtCommentsRepository rpsCommentsRepo;
 
         public BacklogController(
             IPtUserRepository rpsUserData,
             IPtItemsRepository rpsItemsData, 
-            IPtTasksRepository rpsTasksData
+            IPtTasksRepository rpsTasksData,
+            IPtCommentsRepository rpsCommentsData
             )
         {
             rpsUserRepo = rpsUserData;
             rpsItemsRepo = rpsItemsData;
             rpsTasksRepo = rpsTasksData;
+            rpsCommentsRepo = rpsCommentsData;
         }
 
         // GET: Backlog
@@ -65,9 +68,11 @@ namespace RPS.Web.Controllers
         {
             var item = rpsItemsRepo.GetItemById(id);
             var users = rpsUserRepo.GetAll();
+            var currentUser = users.Single(u => u.Id == CURRENT_USER_ID);
 
             ViewBag.screen = DetailScreenEnum.Details;
             ViewBag.users = users;
+            ViewBag.currentUser = currentUser;
 
             return View("Details", item);
         }
@@ -175,10 +180,38 @@ namespace RPS.Web.Controllers
         public ActionResult Chitchat(int id)
         {
             var item = rpsItemsRepo.GetItemById(id);
+            var users = rpsUserRepo.GetAll();
+            var currentUser = users.Single(u => u.Id == CURRENT_USER_ID);
+
+            ViewBag.screen = DetailScreenEnum.Chitchat;
+            ViewBag.currentUser = currentUser;
+
+            return View("Details", item);
+        }
+
+        [HttpPost]
+        [Route("{id:int}/Chitchat")]
+        public ActionResult Chitchat(int id, PtItemCommentsVm vm)
+        {
             ViewBag.screen = DetailScreenEnum.Chitchat;
 
-            
-            return View("Details", item);
+            try
+            {
+                PtNewComment commentNew = new PtNewComment
+                {
+                    ItemId = id,
+                    Title = vm.NewCommentText,
+                    UserId = CURRENT_USER_ID
+                };
+
+                rpsCommentsRepo.AddNewComment(commentNew);
+
+                return RedirectToAction("Chitchat");
+            }
+            catch
+            {
+                return RedirectToAction("Chitchat");
+            }
         }
 
         // GET: Backlog/Create

@@ -44,7 +44,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IPtCommentsRepository.cs" />
     <Compile Include="IPtTasksRepository.cs" />
+    <Compile Include="PtCommentsRepository.cs" />
     <Compile Include="PtInMemoryContext.cs" />
     <Compile Include="PtTasksRepository.cs" />
     <Compile Include="PtUserRepository.cs" />

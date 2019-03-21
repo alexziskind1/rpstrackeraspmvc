@@ -2,10 +2,15 @@
 @using RPS.Core.Models.Enums;
 
 
-@helper UserAvatar(PtUser user)
+@helper UserAvatar(PtUser user, string classNames)
 {
-        <img src="/Content/@user.Avatar"
-             class="li-avatar rounded mx-auto d-block" alt="@user.FullName" />
+    string cl = "li-avatar rounded mx-auto d-block";
+    if (!String.IsNullOrEmpty(classNames))
+    {
+        cl = classNames;
+    }
+            <img src="/Content/@user.Avatar"
+                 class="@cl" alt="@user.FullName" />
 }
 
 @helper ItemTypeIndicatorImage(ItemTypeEnum itemType, string className)

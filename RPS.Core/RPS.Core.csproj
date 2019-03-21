@@ -42,6 +42,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Models\Dto\PtNewComment.cs" />
     <Compile Include="Models\Dto\PtNewItem.cs" />
     <Compile Include="Models\Dto\PtNewTask.cs" />
     <Compile Include="Models\Dto\PtUpdateItem.cs" />

@@ -168,6 +168,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\ViewModels\PtItemCommentsVm.cs" />
     <Compile Include="Models\ViewModels\PtItemDetailsVm.cs" />
     <Compile Include="Models\ViewModels\PtItemTasksVm.cs" />
     <Compile Include="Models\ViewModels\PtNewItemVm.cs" />
@@ -428,6 +429,7 @@
     <Content Include="Content\Images\icon_pbi.png" />
     <Content Include="Content\Images\rpslogo.png" />
     <Content Include="Content\Styles\backlog.css" />
+    <Content Include="Content\Styles\detail.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Styles\Site.css" />
@@ -503,6 +505,7 @@
     <Content Include="Views\Backlog\EditView.cshtml" />
     <Content Include="Views\Backlog\_Tasks.cshtml" />
     <Content Include="Views\Backlog\_TasksScripts.cshtml" />
+    <Content Include="Views\Backlog\_Chitchat.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

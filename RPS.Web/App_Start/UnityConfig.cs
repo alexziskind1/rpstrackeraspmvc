@@ -35,6 +35,12 @@ namespace RPS.Web
                 new InjectionFactory(c => new PtTasksRepository(tempDataContext))
                 );
 
+            container.RegisterType<IPtCommentsRepository, PtCommentsRepository>(
+                new ContainerControlledLifetimeManager(),
+                new InjectionFactory(c => new PtCommentsRepository(tempDataContext))
+                );
+
+
             container.Resolve<IPtItemsRepository>();
             container.Resolve<IPtUserRepository>();
 

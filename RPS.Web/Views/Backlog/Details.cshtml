@@ -35,8 +35,15 @@
 
             break;
         case DetailScreenEnum.Chitchat:
-            <div id="chitchatScreenContainer">Chitchat</div>
+            <div id="chitchatScreenContainer">
+                @Html.Partial("_Chitchat", new PtItemCommentsVm(Model, ViewBag.currentUser))
+            </div>
             break;
     }
+}
+
+
+@section styles {
+    @Styles.Render("~/Content/detailcss")
 }
 
