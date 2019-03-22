@@ -8,8 +8,8 @@ namespace RPS.Web.Models.ViewModels
 {
     public class PtDashboardVm
     {
-        public DateTime DateStart { get; set;}
-        public DateTime DateEnd { get; set; }
+        public DateTime? DateStart { get; set;}
+        public DateTime? DateEnd { get; set; }
 
         public int IssueCountOpen { get; set; }
         public int IssueCountClosed { get; set; }
@@ -18,10 +18,8 @@ namespace RPS.Web.Models.ViewModels
         public decimal IssueCloseRate { get { return Math.Round((decimal)IssueCountClosed / (decimal)IssueCountActive * 100m, 2); } }
 
 
-        public PtDashboardVm(DateTime start, DateTime end, PtDashboardStatusCounts statusCounts)
+        public PtDashboardVm(PtDashboardStatusCounts statusCounts)
         {
-            DateStart = start;
-            DateEnd = end;
             IssueCountOpen = statusCounts.OpenItemsCount;
             IssueCountClosed = statusCounts.ClosedItemsCount;
         }

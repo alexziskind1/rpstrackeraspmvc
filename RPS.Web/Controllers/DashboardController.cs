@@ -40,7 +40,13 @@ namespace RPS.Web.Controllers
 
             var statusCounts = rpsDashRepo.GetStatusCounts(filter);
 
-            PtDashboardVm vm = new PtDashboardVm(filter.DateStart,filter.DateEnd, statusCounts);
+            PtDashboardVm vm = new PtDashboardVm(statusCounts);
+
+            if (months.HasValue)
+            {
+                vm.DateStart = filter.DateStart;
+                vm.DateEnd = filter.DateEnd;
+            }
 
             return View(vm);
         }

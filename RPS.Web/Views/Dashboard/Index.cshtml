@@ -8,7 +8,13 @@
         <div class="col-md order-md-first text-center text-md-left">
             <h2>
                 <span class="small text-uppercase text-muted d-block">Statistics</span>
-                <span id="spanFilteredDateRange"></span>
+                @if (Model.DateStart.HasValue && Model.DateEnd.HasValue)
+                {
+                    <span id="spanFilteredDateRange">
+                        @Model.DateStart.Value.ToString("MMM d, yyyy") - @Model.DateEnd.Value.ToString("MMM d, yyyy")
+                    </span>
+                }
+
             </h2>
         </div>
 
