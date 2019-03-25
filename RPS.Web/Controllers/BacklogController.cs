@@ -108,8 +108,9 @@ namespace RPS.Web.Controllers
         public ActionResult Tasks(int id)
         {
             var item = rpsItemsRepo.GetItemById(id);
+            var users = rpsUserRepo.GetAll();
             ViewBag.screen = DetailScreenEnum.Tasks;
-
+            ViewBag.users = users;
 
             return View("Details", item);
         }
@@ -187,6 +188,7 @@ namespace RPS.Web.Controllers
             var currentUser = users.Single(u => u.Id == CURRENT_USER_ID);
 
             ViewBag.screen = DetailScreenEnum.Chitchat;
+            ViewBag.users = users;
             ViewBag.currentUser = currentUser;
 
             return View("Details", item);
