@@ -20,14 +20,14 @@
     switch (ViewBag.screen)
     {
         case DetailScreenEnum.Details:
-            <div id="detailsScreenContainer">
-                @Html.Partial("_Details", new PtItemDetailsVm(Model, ViewBag.users))
-            </div>
+
+            @Html.Partial("_Details", new PtItemDetailsVm(Model, ViewBag.users));
+
             break;
         case DetailScreenEnum.Tasks:
-            <div id="tasksScreenContainer">
-                @Html.Partial("_Tasks", new PtItemTasksVm(Model))
-            </div>
+
+            @Html.Partial("_Tasks", new PtItemTasksVm(Model));
+
 
             @section scripts {
                 @Html.Partial("_TasksScripts")
@@ -35,9 +35,9 @@
 
             break;
         case DetailScreenEnum.Chitchat:
-            <div id="chitchatScreenContainer">
-                @Html.Partial("_Chitchat", new PtItemCommentsVm(Model, ViewBag.currentUser))
-            </div>
+
+            @Html.Partial("_Chitchat", new PtItemCommentsVm(Model, ViewBag.currentUser));
+
             break;
     }
 }
