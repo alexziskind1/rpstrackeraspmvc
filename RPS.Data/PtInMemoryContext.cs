@@ -33,6 +33,7 @@ namespace RPS.Data
             }
 
             items = JsonConvert.DeserializeObject<List<PtItem>>(contentsItems);
+            ModifyItemDates(items);
 
             string contentsUsers = "[]";
 
@@ -43,6 +44,25 @@ namespace RPS.Data
             }
 
             users = JsonConvert.DeserializeObject<List<PtUser>>(contentsUsers);
+        }
+
+        private void ModifyItemDates(List<PtItem> items)
+        {
+            var startDate = DateTime.Now.AddYears(-1);
+            var endDate = DateTime.Now.AddDays(-1);
+            var randomTest = new Random();
+
+            TimeSpan timeSpan = endDate - startDate;
+
+
+            items.ForEach(i =>
+            {
+                TimeSpan newSpan = new TimeSpan(0, randomTest.Next(0, (int)timeSpan.TotalMinutes), 0);
+                DateTime newDate = startDate + newSpan;
+
+                i.DateCreated = newDate;
+                i.DateModified = newDate;
+            });
         }
     }
 }
