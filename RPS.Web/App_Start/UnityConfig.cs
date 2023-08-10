@@ -1,7 +1,6 @@
 using RPS.Data;
 using System.Web.Mvc;
 using Unity;
-using Unity.Injection;
 using Unity.Lifetime;
 using Unity.Mvc5;
 
@@ -11,38 +10,38 @@ namespace RPS.Web
     {
         public static void RegisterComponents()
         {
-            var container = new UnityContainer();
-
+			var container = new UnityContainer();
+            
             // register all your components with the container here
             // it is NOT necessary to register your controllers
-
+            
             // e.g. container.RegisterType<ITestService, TestService>();
 
             var tempDataContext = new PtInMemoryContext();
 
-            container.RegisterType<IPtUserRepository, PtUserRepository>(
-                new ContainerControlledLifetimeManager(),
-                new InjectionFactory(c => new PtUserRepository(tempDataContext))
+            container.RegisterFactory<IPtUserRepository>(
+                c => new PtUserRepository(tempDataContext),
+                new ContainerControlledLifetimeManager()
                 );
 
-            container.RegisterType<IPtItemsRepository, PtItemsRepository>(
-                new ContainerControlledLifetimeManager(),
-                new InjectionFactory(c => new PtItemsRepository(tempDataContext))
+            container.RegisterFactory<IPtItemsRepository>(
+                c => new PtItemsRepository(tempDataContext),
+                new ContainerControlledLifetimeManager()
                 );
 
-            container.RegisterType<IPtDashboardRepository, PtDashboardRepository>(
-                new ContainerControlledLifetimeManager(),
-                new InjectionFactory(c => new PtDashboardRepository(tempDataContext))
+            container.RegisterFactory<IPtDashboardRepository>(
+                c => new PtDashboardRepository(tempDataContext),
+                new ContainerControlledLifetimeManager()
                 );
 
-            container.RegisterType<IPtTasksRepository, PtTasksRepository>(
-                new ContainerControlledLifetimeManager(),
-                new InjectionFactory(c => new PtTasksRepository(tempDataContext))
+            container.RegisterFactory<IPtTasksRepository>(
+                c => new PtTasksRepository(tempDataContext),
+                new ContainerControlledLifetimeManager()
                 );
 
-            container.RegisterType<IPtCommentsRepository, PtCommentsRepository>(
-                new ContainerControlledLifetimeManager(),
-                new InjectionFactory(c => new PtCommentsRepository(tempDataContext))
+            container.RegisterFactory<IPtCommentsRepository>(
+                c => new PtCommentsRepository(tempDataContext),
+                new ContainerControlledLifetimeManager()
                 );
 
 
