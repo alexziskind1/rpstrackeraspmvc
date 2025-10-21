@@ -22,9 +22,16 @@ namespace RPS.Web
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                       "~/Scripts/bootstrap.js"));
 
+            bundles.Add(new Bundle("~/bundles/kendojs").Include(
+                      "~/Scripts/kendo/2025.3.1002/kendo.all.min.js",
+                      "~/Scripts/kendo/2025.3.1002/kendo.aspnetmvc.min.js"));
+
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/styles/site.css"));
+
+            bundles.Add(new StyleBundle("~/Content/kendocss").Include(
+                      "~/Content/kendo/2025.3.1002/default-main.css"));
 
 
             bundles.Add(new StyleBundle("~/Content/dashboardcss").Include(

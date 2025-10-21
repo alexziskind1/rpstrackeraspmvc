@@ -25,15 +25,36 @@
 
                         </div>
                         <div class="btn-group mr-2">
-                            <button type="button" class="btn btn-light" data-range="3" onclick="location.href = '@(Url.Action("Index", "Dashboard", new { months = 3, userId = ViewBag.userId }))'">
-                                3 Months
-                            </button>
-                            <button type="button" class="btn btn-light" data-range="6" onclick="location.href = '@(Url.Action("Index", "Dashboard", new { months = 6, userId = ViewBag.userId  }))'">
-                                6 Months
-                            </button>
-                            <button type="button" class="btn btn-light" data-range="12" onclick="location.href = '@(Url.Action("Index", "Dashboard", new { months = 12, userId = ViewBag.userId  }))'">
-                                1 Year
-                            </button>
+
+                            @(Html.Kendo().Button().Name("btnFilterMonths3")
+                                .Content("3 Months")
+                                .HtmlAttributes(new
+                                {
+                                    @class = ViewBag.months == 3 ? "k-selected" : ""
+                                })
+                                .Events(events =>
+                                {
+                                    events.Click("function() { onFilterItemClick(3) }");
+                                })
+                            )
+
+
+                            @(Html.Kendo().Button().Name("btnFilterMonths6")
+                                .Content("6 Months").Icon("calendar")
+                                .HtmlAttributes(new
+                                {
+                                    @class = ViewBag.months == 6 ? "k-selected" : "",
+                                    onclick = "location.href = '" + Html.Raw(Url.Action("Index", "Dashboard", new {months = 6, userId = ViewBag.userId})) + "';"
+                                })
+                            )
+                            @(Html.Kendo().Button().Name("btnFilterMonths12")
+                                .Content("1 Year").Icon("calendar")
+                                .HtmlAttributes(new
+                                {
+                                    @class = ViewBag.months == 12 ? "k-selected" : "",
+                                    onclick = "location.href = '" + Html.Raw(Url.Action("Index", "Dashboard", new {months = 12, userId = ViewBag.userId})) + "';"
+                                })
+                            )
 
                         </div>
                     </div>
@@ -92,4 +113,20 @@
     </div>
 </div>
 
+@section scripts {
 
+    @{ 
+        var userIdParam = "";
+        if (ViewBag.userId != null)
+        {
+            userIdParam = "&userId=" + ViewBag.userId;
+        }
+    }
+
+
+   <script>
+       function onFilterItemClick(months) {
+           location.href = `/?months=${months}@Html.Raw(userIdParam)`;
+       }
+    </script>
+}

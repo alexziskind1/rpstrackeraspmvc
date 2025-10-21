@@ -5,9 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RPS Project Tracker</title>
     @Styles.Render("~/Content/css")
+    @Styles.Render("~/Content/kendocss")
+
     @Scripts.Render("~/bundles/modernizr")
 
     @RenderSection("styles", required: false)
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/kendojs")
+
+    @Html.Kendo().DeferredScripts()
+
+    @RenderSection("scripts", required: false)
 </head>
 <body>
 
@@ -26,7 +35,6 @@
         </div>
     </div>
 
-    @Scripts.Render("~/bundles/jquery")
-    @RenderSection("scripts", required: false)
+
 </body>
 </html>
