@@ -1,4 +1,4 @@
-@using RPS.Web.Models.Routing;
+ @using RPS.Web.Models.Routing;
 @using RPS.Web.Models.ViewModels;
 @model RPS.Core.Models.PtItem
 
@@ -17,9 +17,9 @@
                 <div class="Tools d-flex gap-3">
                     <div class="btn-toolbar mb-2 mb-md-0">
                         <div class="btn-group mr-2">
-                            <button class="btn btn-light" onclick="location.href = '@(Url.Action("Index", "Detail", new { id = Model.Id }))'">Form</button>
+                            @*<button class="btn btn-light" onclick="location.href = '@(Url.Action("Index", "Detail", new { id = Model.Id }))'">Form</button>
                             <button class="btn btn-light" onclick="location.href = '@(Url.Action("Tasks", "Detail", new { id = Model.Id }))'">Tasks</button>
-                            <button class="btn btn-light" onclick="location.href = '@(Url.Action("Chitchat", "Detail", new { id = Model.Id }))'">Chitchat</button>
+                            <button class="btn btn-light" onclick="location.href = '@(Url.Action("Chitchat", "Detail", new { id = Model.Id }))'">Chitchat</button>*@
                         </div>
                     </div>
                 </div>
@@ -31,7 +31,31 @@
     <div class="container">
         <div style="margin-top: 20px">
 
-            @{
+            @(Html.Kendo().TabStrip()
+                .Name("tabstrip")
+                .Items(tabstrip =>
+                {
+                    tabstrip.Add()
+                        .Text("Form")
+                        .LinkHtmlAttributes(new { onclick = "pushUrl(\"RPS Project Tracker\", \"/Detail/" + Model.Id + "\")" })
+                        .LoadContentFrom("DetailsForm", "Detail", Model.Id)
+                        .Selected(ViewBag.screen == DetailScreenEnum.Form);
+
+                    tabstrip.Add()
+                        .Text("Tasks")
+                        .LinkHtmlAttributes(new { onclick = "pushUrl(\"RPS Project Tracker\", \"/Detail/" + Model.Id + "/Tasks\")" })
+                        .LoadContentFrom("TasksForm", "Detail", Model.Id)
+                        .Selected(ViewBag.screen == DetailScreenEnum.Tasks);
+
+                    tabstrip.Add()
+                        .Text("Chitchat")
+                        .LinkHtmlAttributes(new { onclick = "pushUrl(\"RPS Project Tracker\", \"/Detail/" + Model.Id + "/Chitchat\")" })
+                        .LoadContentFrom("ChitchatForm", "Detail", Model.Id)
+                        .Selected(ViewBag.screen == DetailScreenEnum.Chitchat);
+                })
+            )
+
+            @*@{
                 switch (ViewBag.screen)
                 {
                     case DetailScreenEnum.Form:
@@ -50,7 +74,7 @@
 
                         break;
                 }
-            }
+            }*@
 
         </div>
     </div>

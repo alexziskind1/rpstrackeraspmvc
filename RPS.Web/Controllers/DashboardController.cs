@@ -14,12 +14,15 @@ namespace RPS.Web.Controllers
 
 
         private readonly IPtDashboardRepository rpsDashRepo;
+        private readonly IPtUserRepository rpsUserRepo;
 
         public DashboardController(
-      IPtDashboardRepository rpsDashData
+      IPtDashboardRepository rpsDashData,
+      IPtUserRepository rpsUserData
       )
         {
             rpsDashRepo = rpsDashData;
+            rpsUserRepo = rpsUserData;
         }
 
         // GET: Dashboard
@@ -38,10 +41,11 @@ namespace RPS.Web.Controllers
                 UserId = userId.HasValue ? userId.Value : 0
             };
 
+            var users = rpsUserRepo.GetAll();
             var statusCounts = rpsDashRepo.GetStatusCounts(filter);
             var filteredIssues = rpsDashRepo.GetFilteredIssues(filter);
 
-            PtDashboardVm vm = new PtDashboardVm(statusCounts, filteredIssues);
+            PtDashboardVm vm = new PtDashboardVm(statusCounts, filteredIssues, users.ToList(), userId);
 
             if (months.HasValue)
             {

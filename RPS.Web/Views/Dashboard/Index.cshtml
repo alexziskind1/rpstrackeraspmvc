@@ -22,6 +22,20 @@
                     <div class="btn-toolbar mb-2 mb-md-0">
                         <div class="btn-group me-2">
 
+                            @(Html.Kendo().ComboBoxFor(model => model.SelectedAssigneeId)
+                                            .BindTo(Model.Assignees)
+                                            .DataValueField("Id")
+                                            .DataTextField("FullName")
+                                            .Placeholder("Select assignee...")
+                                            .HtmlAttributes(new { style="width: 260px;" })
+                                            .Events(events =>
+                                            {
+                                                events.Change("onAssigneeChange");
+                                            })
+                                            .Template("<div class='row' style='margin-left: 5px;'>" + 
+                                                        "<img src='" + Url.Content("~/Content/#:data.Avatar#") + "' class='li-avatar rounded mx-auto'" +
+                                                        "<span style='margin-left:5px;'>#:data.FullName#</span></div>")
+                            )
 
                         </div>
                         <div class="btn-group mr-2">
@@ -117,16 +131,30 @@
 
     @{ 
         var userIdParam = "";
+        var monthsParam = "";
         if (ViewBag.userId != null)
         {
             userIdParam = "&userId=" + ViewBag.userId;
         }
+        if (ViewBag.months != null)
+        {
+            monthsParam = "months=" + ViewBag.months;
+        }
     }
 
 
-   <script>
+<script>
+       function onAssigneeChange(e) {
+           var userId = e.sender.value();
+           if (userId) {
+               location.href = `/?userId=${userId}&@Html.Raw(monthsParam)`;
+           } else {
+               location.href = `/?@Html.Raw(monthsParam)`;
+           }
+       }
+
        function onFilterItemClick(months) {
            location.href = `/?months=${months}@Html.Raw(userIdParam)`;
        }
-    </script>
+</script>
 }

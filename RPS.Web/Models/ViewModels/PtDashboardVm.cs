@@ -1,4 +1,5 @@
-﻿using RPS.Core.Models.Dto;
+﻿using RPS.Core.Models;
+using RPS.Core.Models.Dto;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,10 +16,23 @@ namespace RPS.Web.Models.ViewModels
 
         public PtDashboardFilteredIssues FilteredIssues { get; set; }
 
-        public PtDashboardVm(PtDashboardStatusCounts statusCounts, PtDashboardFilteredIssues filteredIssues)
+        public int? SelectedAssigneeId { get; set; }
+        public List<PtUser> Assignees { get; set; }
+
+        public PtDashboardVm(PtDashboardStatusCounts statusCounts, 
+            PtDashboardFilteredIssues filteredIssues,
+            List<PtUser> users,
+            int? userId)
         {
             StatusCounts = statusCounts;
             FilteredIssues = filteredIssues;
+
+            Assignees = users;
+            if (userId.HasValue)
+            {
+                SelectedAssigneeId = userId;
+            }
+            
         }
     }
 }

@@ -28,7 +28,13 @@
     <div class="form-group row mb-3">
         @Html.LabelFor(model => model.Estimate, htmlAttributes: new { @class = "col-sm-2 col-form-label" })
         <div class="col-sm-6">
-            @Html.EditorFor(model => model.Estimate, new { htmlAttributes = new { @class = "form-control", type = "range", step = "1", min = "0", max = "20" } })
+
+            @(Html.Kendo().SliderFor(model => model.Estimate)
+                .Max(20)
+                .Min(0)
+                .LargeStep(1)
+                .HtmlAttributes(new { style="width:100%;" })
+            )
             @Html.ValidationMessageFor(model => model.Estimate, "", new { @class = "text-danger" })
         </div>
     </div>
@@ -36,7 +42,12 @@
     <div class="form-group row mb-3">
         @Html.LabelFor(model => model.SelectedItemType, htmlAttributes: new { @class = "col-sm-2 col-form-label" })
         <div class="col-sm-6">
-            @Html.DropDownListFor(m => m.SelectedItemType, Model.ItemTypes, new { @class = "form-control" })
+            @(Html.Kendo().DropDownListFor(m => m.SelectedItemType)
+                .BindTo(Model.ItemTypes)
+                .Value(Model.SelectedItemType.ToString())
+                .Template("<img src='" + Url.Content("~/Content/images/icon_#:data.Text#.png") + "' class='backlog-icon' />" +
+                            "<span>#:data.Text#</span>")
+            )
             @Html.ValidationMessageFor(model => model.SelectedItemType, "", new { @class = "text-danger" })
         </div>
     </div>
@@ -44,7 +55,10 @@
     <div class="form-group row mb-3">
         @Html.LabelFor(model => model.SelectedStatus, htmlAttributes: new { @class = "col-sm-2 col-form-label" })
         <div class="col-sm-6">
-            @Html.DropDownListFor(m => m.SelectedStatus, Model.Statuses, new { @class = "form-control" })
+            @(Html.Kendo().DropDownListFor(m => m.SelectedStatus)
+                .BindTo(Model.Statuses)
+                .Value(Model.SelectedStatus.ToString())
+            )
             @Html.ValidationMessageFor(model => model.SelectedStatus, "", new { @class = "text-danger" })
         </div>
     </div>
@@ -52,7 +66,11 @@
     <div class="form-group row mb-3">
         @Html.LabelFor(model => model.SelectedPriority, htmlAttributes: new { @class = "col-sm-2 col-form-label" })
         <div class="col-sm-6">
-            @Html.DropDownListFor(m => m.SelectedPriority, Model.Priorities, new { @class = "form-control" })
+            @(Html.Kendo().DropDownListFor(m => m.SelectedPriority)
+                .BindTo(Model.Priorities)
+                .Value(Model.SelectedPriority.ToString())
+                .Template("<span class='badge priority-#:data.Text.toLowerCase()#'>#:data.Text#</span>")
+            )
             @Html.ValidationMessageFor(model => model.SelectedPriority, "", new { @class = "text-danger" })
         </div>
     </div>
@@ -60,7 +78,10 @@
     <div class="form-group row mb-3">
         @Html.LabelFor(model => model.SelectedAssigneeId, htmlAttributes: new { @class = "col-sm-2 col-form-label" })
         <div class="col-sm-6">
-            @Html.DropDownListFor(m => m.SelectedAssigneeId, Model.Users, new { @class = "form-control" })
+            @(Html.Kendo().DropDownListFor(m => m.SelectedAssigneeId)
+                .BindTo(Model.Users)
+                .Value(Model.SelectedAssigneeId.ToString())
+            )
             @Html.ValidationMessageFor(model => model.SelectedAssigneeId, "", new { @class = "text-danger" })
         </div>
     </div>
