@@ -10,7 +10,9 @@ namespace RPS.Web.Models.ViewModels
     public class PtDashboardChartVm
     {
         public PtDashboardFilteredIssues FilteredIssues { get; set; }
+
         public List<DateTime> Categories { get; set; }
+
         public List<int> ItemsOpenByMonth { get; set; }
         public List<int> ItemsClosedByMonth { get; set; }
 
@@ -20,13 +22,13 @@ namespace RPS.Web.Models.ViewModels
 
             ItemsOpenByMonth = new List<int>();
             ItemsClosedByMonth = new List<int>();
-            Categories = new List<DateTime>();
+            Categories = filteredIssues.Categories;
 
-            filteredIssues.MonthItems.ForEach(i => {
+            filteredIssues.MonthItems.ForEach(i =>
+            {
                 ItemsOpenByMonth.Add(i.Open.Count);
                 ItemsClosedByMonth.Add(i.Closed.Count);
             });
-            Categories = filteredIssues.Categories;
         }
     }
 }

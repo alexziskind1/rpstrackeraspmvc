@@ -1,5 +1,34 @@
 ﻿@model RPS.Web.Models.ViewModels.PtDashboardChartVm
 
 
-
-chart
+@(Html.Kendo().Chart()
+    .Name("chart")
+    .Title("All Issues")
+    .CategoryAxis(config =>
+    {
+        config.Categories(Model.Categories)
+            .Date()
+            .BaseUnit(ChartAxisBaseUnit.Months)
+            .MajorGridLines(gl =>
+            {
+                gl.Visible(false);
+            });
+        config.Labels(lbl =>
+        {
+            lbl.Rotation("auto");
+        });
+    })
+    .SeriesDefaults(config =>
+    {
+        config.Column().Stack(true).Gap(0.06).Opacity(0.7);
+    })
+    .Series(config =>
+    {
+        config.Column(Model.ItemsOpenByMonth).Name("Open").Color("#CC3458");
+        config.Column(Model.ItemsClosedByMonth).Name("Closed").Color("#35C473");
+    })
+    .Legend(leg =>
+    {
+        leg.Position(ChartLegendPosition.Bottom);
+    })
+)
