@@ -524,6 +524,7 @@
     <Content Include="Content\Styles\chitchat.css" />
     <Content Include="Content\Styles\dashboard.css" />
     <Content Include="Content\Styles\detail.css" />
+    <Content Include="Content\Styles\rps.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Styles\site.css" />

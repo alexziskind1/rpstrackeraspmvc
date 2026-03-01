@@ -30,8 +30,12 @@ namespace RPS.Web
                       "~/Content/bootstrap.css",
                       "~/Content/styles/site.css"));
 
+            //bundles.Add(new StyleBundle("~/Content/kendocss").Include(
+            //          "~/Content/kendo/2025.3.1002/bootstrap-4.css"));
+
             bundles.Add(new StyleBundle("~/Content/kendocss").Include(
-                      "~/Content/kendo/2025.3.1002/default-main.css"));
+                                        "~/Content/kendo/2025.3.1002/font-icons/index.css",
+                                        "~/Content/Styles/rps.css"));
 
 
             bundles.Add(new StyleBundle("~/Content/dashboardcss").Include(

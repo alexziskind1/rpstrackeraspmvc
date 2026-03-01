@@ -9,7 +9,13 @@
             <div class="col-auto">
                 <div class="frame13 d-flex flex-column align-items-start gap-2">
                     <div class="page-title">
-                        <span class="k-icon k-i-edit"></span> @Model.Title
+                        <span class="k-icon k-font-icon my-custom-icon-class"></span>
+                        <style>
+                            .my-custom-icon-class:before {
+                                content: "\e646"; /* Adds a glyph using the Unicode character number */
+                            }
+                        </style>
+                        @Model.Title
                     </div>
                 </div>
             </div>
