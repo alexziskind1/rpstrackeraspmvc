@@ -24,11 +24,12 @@
     })
     .Series(config =>
     {
-        config.Column(Model.ItemsOpenByMonth).Name("Open").Color("#CC3458");
-        config.Column(Model.ItemsClosedByMonth).Name("Closed").Color("#35C473");
+        config.Column(Model.ItemsOpenByMonth).Name("Open").Color("\\#CC3458");
+        config.Column(Model.ItemsClosedByMonth).Name("Closed").Color("\\#35C473");
     })
     .Legend(leg =>
     {
         leg.Position(ChartLegendPosition.Bottom);
     })
+    .ToClientTemplate()
 )
